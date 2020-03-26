@@ -1,0 +1,41 @@
+// comment 1 ;
+
+int x;   // comment 2 ;
+int y = 5;
+
+str str1;
+str str2 = "string two";
+str1 = "string one";
+
+outputc str1;
+outputc str2;
+
+y = y + 5 - 4 * 3 / 2 % 1;
+
+x = 7;
+
+output x;
+output y;
+
+if x:
+{
+    outputc "true";
+}
+else
+{
+    outputc "false";
+}
+
+input x;
+inputc str;
+
+output x;
+outputc str;
+
+while y:
+{
+    output y;
+    y = y - 1;
+}
+
+exit;

@@ -1,0 +1,457 @@
+Terminals unused in grammar
+
+    COLON
+    INCLUDE
+    IF
+    WHILE
+    OPEN_SCOPE
+    CLOSE_SCOPE
+    OUTPUT
+    OUTPUTC
+    INPUT
+    INPUTC
+
+
+Grammar
+
+    0 $accept: stmts $end
+
+    1 stmts: stmt SEMICOLON
+    2      | stmt SEMICOLON stmts
+
+    3 stmt: TYPE_INT IDENT
+    4     | TYPE_INT IDENT ASSIGNMENT exp
+    5     | TYPE_STR IDENT
+    6     | TYPE_STR IDENT ASSIGNMENT STRING
+    7     | IDENT ASSIGNMENT STRING
+    8     | IDENT ASSIGNMENT exp
+    9     | COMMENT
+   10     | EXIT
+   11     | exp
+   12     | SEMICOLON
+
+   13 exp: factor
+   14    | exp PLUS factor
+   15    | exp MINUS factor
+
+   16 factor: term
+   17       | factor STAR term
+   18       | factor SLASH term
+   19       | factor MOD term
+
+   20 term: INTEGER
+   21     | MINUS INTEGER
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    TYPE_INT (258) 3 4
+    TYPE_STR (259) 5 6
+    COMMENT (260) 9
+    ASSIGNMENT (261) 4 6 7 8
+    INTEGER <i> (262) 20 21
+    STRING <c> (263) 6 7
+    EXIT (264) 10
+    SEMICOLON (265) 1 2 12
+    COLON (266)
+    INCLUDE (267)
+    IDENT <c> (268) 3 4 5 6 7 8
+    PLUS <i> (269) 14
+    MINUS <i> (270) 15 21
+    STAR <i> (271) 17
+    SLASH <i> (272) 18
+    MOD <i> (273) 19
+    IF (274)
+    WHILE (275)
+    OPEN_SCOPE (276)
+    CLOSE_SCOPE (277)
+    OUTPUT (278)
+    OUTPUTC (279)
+    INPUT (280)
+    INPUTC (281)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (27)
+        on left: 0
+    stmts (28)
+        on left: 1 2
+        on right: 0 2
+    stmt (29)
+        on left: 3 4 5 6 7 8 9 10 11 12
+        on right: 1 2
+    exp <i> (30)
+        on left: 13 14 15
+        on right: 4 8 11 14 15
+    factor <i> (31)
+        on left: 16 17 18 19
+        on right: 13 14 15 17 18 19
+    term <i> (32)
+        on left: 20 21
+        on right: 16 17 18 19
+
+
+State 0
+
+    0 $accept: . stmts $end
+
+    TYPE_INT   shift, and go to state 1
+    TYPE_STR   shift, and go to state 2
+    COMMENT    shift, and go to state 3
+    INTEGER    shift, and go to state 4
+    EXIT       shift, and go to state 5
+    SEMICOLON  shift, and go to state 6
+    IDENT      shift, and go to state 7
+    MINUS      shift, and go to state 8
+
+    stmts   go to state 9
+    stmt    go to state 10
+    exp     go to state 11
+    factor  go to state 12
+    term    go to state 13
+
+
+State 1
+
+    3 stmt: TYPE_INT . IDENT
+    4     | TYPE_INT . IDENT ASSIGNMENT exp
+
+    IDENT  shift, and go to state 14
+
+
+State 2
+
+    5 stmt: TYPE_STR . IDENT
+    6     | TYPE_STR . IDENT ASSIGNMENT STRING
+
+    IDENT  shift, and go to state 15
+
+
+State 3
+
+    9 stmt: COMMENT .
+
+    $default  reduce using rule 9 (stmt)
+
+
+State 4
+
+   20 term: INTEGER .
+
+    $default  reduce using rule 20 (term)
+
+
+State 5
+
+   10 stmt: EXIT .
+
+    $default  reduce using rule 10 (stmt)
+
+
+State 6
+
+   12 stmt: SEMICOLON .
+
+    $default  reduce using rule 12 (stmt)
+
+
+State 7
+
+    7 stmt: IDENT . ASSIGNMENT STRING
+    8     | IDENT . ASSIGNMENT exp
+
+    ASSIGNMENT  shift, and go to state 16
+
+
+State 8
+
+   21 term: MINUS . INTEGER
+
+    INTEGER  shift, and go to state 17
+
+
+State 9
+
+    0 $accept: stmts . $end
+
+    $end  shift, and go to state 18
+
+
+State 10
+
+    1 stmts: stmt . SEMICOLON
+    2      | stmt . SEMICOLON stmts
+
+    SEMICOLON  shift, and go to state 19
+
+
+State 11
+
+   11 stmt: exp .
+   14 exp: exp . PLUS factor
+   15    | exp . MINUS factor
+
+    PLUS   shift, and go to state 20
+    MINUS  shift, and go to state 21
+
+    $default  reduce using rule 11 (stmt)
+
+
+State 12
+
+   13 exp: factor .
+   17 factor: factor . STAR term
+   18       | factor . SLASH term
+   19       | factor . MOD term
+
+    STAR   shift, and go to state 22
+    SLASH  shift, and go to state 23
+    MOD    shift, and go to state 24
+
+    $default  reduce using rule 13 (exp)
+
+
+State 13
+
+   16 factor: term .
+
+    $default  reduce using rule 16 (factor)
+
+
+State 14
+
+    3 stmt: TYPE_INT IDENT .
+    4     | TYPE_INT IDENT . ASSIGNMENT exp
+
+    ASSIGNMENT  shift, and go to state 25
+
+    $default  reduce using rule 3 (stmt)
+
+
+State 15
+
+    5 stmt: TYPE_STR IDENT .
+    6     | TYPE_STR IDENT . ASSIGNMENT STRING
+
+    ASSIGNMENT  shift, and go to state 26
+
+    $default  reduce using rule 5 (stmt)
+
+
+State 16
+
+    7 stmt: IDENT ASSIGNMENT . STRING
+    8     | IDENT ASSIGNMENT . exp
+
+    INTEGER  shift, and go to state 4
+    STRING   shift, and go to state 27
+    MINUS    shift, and go to state 8
+
+    exp     go to state 28
+    factor  go to state 12
+    term    go to state 13
+
+
+State 17
+
+   21 term: MINUS INTEGER .
+
+    $default  reduce using rule 21 (term)
+
+
+State 18
+
+    0 $accept: stmts $end .
+
+    $default  accept
+
+
+State 19
+
+    1 stmts: stmt SEMICOLON .
+    2      | stmt SEMICOLON . stmts
+
+    TYPE_INT   shift, and go to state 1
+    TYPE_STR   shift, and go to state 2
+    COMMENT    shift, and go to state 3
+    INTEGER    shift, and go to state 4
+    EXIT       shift, and go to state 5
+    SEMICOLON  shift, and go to state 6
+    IDENT      shift, and go to state 7
+    MINUS      shift, and go to state 8
+
+    $default  reduce using rule 1 (stmts)
+
+    stmts   go to state 29
+    stmt    go to state 10
+    exp     go to state 11
+    factor  go to state 12
+    term    go to state 13
+
+
+State 20
+
+   14 exp: exp PLUS . factor
+
+    INTEGER  shift, and go to state 4
+    MINUS    shift, and go to state 8
+
+    factor  go to state 30
+    term    go to state 13
+
+
+State 21
+
+   15 exp: exp MINUS . factor
+
+    INTEGER  shift, and go to state 4
+    MINUS    shift, and go to state 8
+
+    factor  go to state 31
+    term    go to state 13
+
+
+State 22
+
+   17 factor: factor STAR . term
+
+    INTEGER  shift, and go to state 4
+    MINUS    shift, and go to state 8
+
+    term  go to state 32
+
+
+State 23
+
+   18 factor: factor SLASH . term
+
+    INTEGER  shift, and go to state 4
+    MINUS    shift, and go to state 8
+
+    term  go to state 33
+
+
+State 24
+
+   19 factor: factor MOD . term
+
+    INTEGER  shift, and go to state 4
+    MINUS    shift, and go to state 8
+
+    term  go to state 34
+
+
+State 25
+
+    4 stmt: TYPE_INT IDENT ASSIGNMENT . exp
+
+    INTEGER  shift, and go to state 4
+    MINUS    shift, and go to state 8
+
+    exp     go to state 35
+    factor  go to state 12
+    term    go to state 13
+
+
+State 26
+
+    6 stmt: TYPE_STR IDENT ASSIGNMENT . STRING
+
+    STRING  shift, and go to state 36
+
+
+State 27
+
+    7 stmt: IDENT ASSIGNMENT STRING .
+
+    $default  reduce using rule 7 (stmt)
+
+
+State 28
+
+    8 stmt: IDENT ASSIGNMENT exp .
+   14 exp: exp . PLUS factor
+   15    | exp . MINUS factor
+
+    PLUS   shift, and go to state 20
+    MINUS  shift, and go to state 21
+
+    $default  reduce using rule 8 (stmt)
+
+
+State 29
+
+    2 stmts: stmt SEMICOLON stmts .
+
+    $default  reduce using rule 2 (stmts)
+
+
+State 30
+
+   14 exp: exp PLUS factor .
+   17 factor: factor . STAR term
+   18       | factor . SLASH term
+   19       | factor . MOD term
+
+    STAR   shift, and go to state 22
+    SLASH  shift, and go to state 23
+    MOD    shift, and go to state 24
+
+    $default  reduce using rule 14 (exp)
+
+
+State 31
+
+   15 exp: exp MINUS factor .
+   17 factor: factor . STAR term
+   18       | factor . SLASH term
+   19       | factor . MOD term
+
+    STAR   shift, and go to state 22
+    SLASH  shift, and go to state 23
+    MOD    shift, and go to state 24
+
+    $default  reduce using rule 15 (exp)
+
+
+State 32
+
+   17 factor: factor STAR term .
+
+    $default  reduce using rule 17 (factor)
+
+
+State 33
+
+   18 factor: factor SLASH term .
+
+    $default  reduce using rule 18 (factor)
+
+
+State 34
+
+   19 factor: factor MOD term .
+
+    $default  reduce using rule 19 (factor)
+
+
+State 35
+
+    4 stmt: TYPE_INT IDENT ASSIGNMENT exp .
+   14 exp: exp . PLUS factor
+   15    | exp . MINUS factor
+
+    PLUS   shift, and go to state 20
+    MINUS  shift, and go to state 21
+
+    $default  reduce using rule 4 (stmt)
+
+
+State 36
+
+    6 stmt: TYPE_STR IDENT ASSIGNMENT STRING .
+
+    $default  reduce using rule 6 (stmt)

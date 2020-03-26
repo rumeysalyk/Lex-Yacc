@@ -1,0 +1,1 @@
+yacc -d scanner.y && lex scanner.l && gcc lex.yy.c y.tab.c && ./a.out

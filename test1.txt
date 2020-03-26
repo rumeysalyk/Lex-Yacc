@@ -1,0 +1,22 @@
+int x;
+int y = 5;
+x = 2;
+
+output x + y * 3;
+//outputc x;
+
+str s = "ali";
+outputc s;
+//output s;
+
+if 1
+{
+    outputc "true";
+};
+
+while 123
+{
+    output 5;
+};
+
+
